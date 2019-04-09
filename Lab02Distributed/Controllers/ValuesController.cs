@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Lab02Distributed.Models;
 using Microsoft.AspNetCore.Mvc;
+using RestSharp;
 
 namespace Lab02Distributed.Controllers
 {
@@ -10,36 +12,41 @@ namespace Lab02Distributed.Controllers
     [ApiController]
     public class ValuesController : ControllerBase
     {
+        private RestClient client;
+
+        public ValuesController()
+        {
+            client = new RestClient("http://144.17.24.145:6005");
+
+        }
         // GET api/values
         [HttpGet]
         public ActionResult<IEnumerable<string>> Get()
         {
-            return new string[] { "value1", "value2" };
+
+            var request = new RestRequest("/register", Method.POST);
+            request.AddJsonBody(new RegisterRequest()
+            {
+                workerId = new Guid(),
+                TeamName = "ColombianBoi",
+                CreateJobEndPoint = "http://144.17.24.64:5000/api/RecieveJob",
+                ErrorCheckEndPoint = "http://144.17.24.64:5000/api/Error"
+            });
+            try
+            {
+              
+                var response = client.Execute<CreateJobResponse>(request);
+                Console.WriteLine("\n>>>" + response.Data.Result + "<<<\n");
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+            }
+
+            return new string[] { "Works", "Works" };
         }
 
-        // GET api/values/5
-        [HttpGet("{id}")]
-        public ActionResult<string> Get(int id)
-        {
-            return "value";
-        }
 
-        // POST api/values
-        [HttpPost]
-        public void Post([FromBody] string value)
-        {
-        }
 
-        // PUT api/values/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
-
-        // DELETE api/values/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
-        }
     }
 }
