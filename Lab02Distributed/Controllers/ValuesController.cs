@@ -16,7 +16,7 @@ namespace Lab02Distributed.Controllers
 
         public ValuesController()
         {
-            client = new RestClient("http://144.17.24.145:6005");
+            client = new RestClient("http://localhost:5000");
 
         }
         // GET api/values
@@ -29,8 +29,8 @@ namespace Lab02Distributed.Controllers
             {
                 workerId = new Guid(),
                 TeamName = "ColombianBoi",
-                CreateJobEndPoint = "http://144.17.24.64:5000/api/RecieveJob",
-                ErrorCheckEndPoint = "http://144.17.24.64:5000/api/Error"
+                CreateJobEndPoint = "http://localhost:80/api/RecieveJob",
+                ErrorCheckEndPoint = "http://localhost:80/api/Error"
             });
             try
             {

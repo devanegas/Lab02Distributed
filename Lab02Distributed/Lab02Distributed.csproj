@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp2.2</TargetFramework>
     <AspNetCoreHostingModel>InProcess</AspNetCoreHostingModel>
-    <StartupObject>Lab02Distributed.Models.OrderOfOperations</StartupObject>
+    <StartupObject>Lab02Distributed.Program</StartupObject>
   </PropertyGroup>
 
   <ItemGroup>
